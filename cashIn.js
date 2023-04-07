@@ -8,11 +8,12 @@ const cashInConfig = {
     },
 };
 
-cashIn.calculateCommission = (transactionItem) => {
-    let commission = transactionItem.operation.amount * (cashInConfig.percents / 100);
+cashIn.calculateCommission = (transactionAmount) => {
+    let commission = transactionAmount * (cashInConfig.percents / 100);
     if (commission > cashInConfig.max.amount) {
         commission = cashInConfig.max.amount;
     }
+    commission = Math.ceil(commission * 100) / 100;
     console.log(commission.toFixed(2));
 };
 

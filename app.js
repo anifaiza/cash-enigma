@@ -3,6 +3,12 @@ const moment = require('moment');
 const cashIn = require('./cashIn');
 const cashOut = require('./cashOut');
 
+moment.locale('en', {
+    week: {
+        dow: 1, // Monday is the first day of the week
+    },
+});
+
 const args = process.argv;
 const input = fs.readFileSync(args[2]);
 
@@ -14,7 +20,7 @@ const usersCashOutInfo = {};
 inputArray.map((item) => {
     // eslint-disable-next-line no-unused-expressions
     if (item.type === 'cash_in') {
-        cashIn.calculateCommission(item);
+        cashIn.calculateCommission(item.operation.amount);
     } else if (item.user_type === 'natural') {
         if (!usersCashOutInfo[item.user_id]) {
             usersCashOutInfo[item.user_id] = item.operation.amount;
@@ -22,7 +28,7 @@ inputArray.map((item) => {
         } else if (moment(item.date).isSame(dateToCheckWith, 'week')) {
             cashOut.calculateCommissionNatural(
                 item.operation.amount,
-                usersCashOutInfo[item.user_id]
+                usersCashOutInfo[item.user_id],
             );
             usersCashOutInfo[item.user_id] += item.operation.amount;
         } else if (!moment(item.date).isSame(dateToCheckWith, 'week')) {
@@ -31,6 +37,6 @@ inputArray.map((item) => {
             dateToCheckWith = item.date;
         }
     } else {
-        cashOut.calculateCommissionJuridical(item);
+        cashOut.calculateCommissionJuridical(item.operation.amount);
     }
 });

@@ -31,14 +31,16 @@ cashOut.calculateCommissionNatural = (transactionAmount, prevCashOutAmount) => {
     } else {
         commission = 0;
     }
+    commission = Math.ceil(commission * 100) / 100;
     console.log(commission.toFixed(2));
 };
 
-cashOut.calculateCommissionJuridical = (transactionItem) => {
-    let commission = transactionItem.operation.amount * (cashOutJuridicalConfig.percents / 100);
+cashOut.calculateCommissionJuridical = (transactionAmount) => {
+    let commission = transactionAmount * (cashOutJuridicalConfig.percents / 100);
     if (commission < cashOutJuridicalConfig.min.amount) {
         commission = cashOutJuridicalConfig.min.amount;
     }
+    commission = Math.ceil(commission * 100) / 100;
     console.log(commission.toFixed(2));
 };
 
