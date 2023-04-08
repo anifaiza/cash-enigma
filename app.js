@@ -11,14 +11,11 @@ moment.updateLocale('en', {
     },
 });
 
-app.outputComission = (filename) => {
-    const input = fs.readFileSync(filename);
-    const inputArray = JSON.parse(input);
+app.outputComission = (inputArray) => {
     let dateToCheckWith = inputArray[0].date;
     const usersCashOutInfo = {};
-    // eslint-disable-next-line array-callback-return
+
     inputArray.map((item) => {
-        // eslint-disable-next-line no-unused-expressions
         if (item.type === 'cash_in') {
             cashIn.calculateCommission(item.operation.amount);
         } else if (item.user_type === 'natural') {
@@ -28,7 +25,7 @@ app.outputComission = (filename) => {
             } else if (moment(item.date).isSame(dateToCheckWith, 'week')) {
                 cashOut.calculateCommissionNatural(
                     item.operation.amount,
-                    usersCashOutInfo[item.user_id],
+                    usersCashOutInfo[item.user_id]
                 );
                 usersCashOutInfo[item.user_id] += item.operation.amount;
             } else if (!moment(item.date).isSame(dateToCheckWith, 'week')) {
@@ -43,7 +40,8 @@ app.outputComission = (filename) => {
 };
 
 const args = process.argv;
-
-app.outputComission(args[2]);
+const input = fs.readFileSync(args[2]);
+const inputArray = JSON.parse(input);
+app.outputComission(inputArray);
 
 module.exports = app;
