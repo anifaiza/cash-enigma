@@ -1,4 +1,9 @@
 {
+  "name": "cash_transaction_project",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js"
+  },
   "devDependencies": {
     "eslint": "8.2.0",
     "eslint-config-airbnb-base": "15.0.0",
