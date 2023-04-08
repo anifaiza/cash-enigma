@@ -16,24 +16,27 @@ app.outputComission = (inputArray) => {
     const usersCashOutInfo = {};
 
     inputArray.map((item) => {
-        if (item.type === 'cash_in') {
+        if (item.type === 'cash_in') { 
+            //in case of cash in 
             cashIn.calculateCommission(item.operation.amount);
         } else if (item.user_type === 'natural') {
+            //in case of cash out natural
             if (!usersCashOutInfo[item.user_id]) {
+                //if the user has no previous cash out history
                 usersCashOutInfo[item.user_id] = item.operation.amount;
                 cashOut.calculateCommissionNatural(item.operation.amount, 0);
             } else if (moment(item.date).isSame(dateToCheckWith, 'week')) {
-                cashOut.calculateCommissionNatural(
-                    item.operation.amount,
-                    usersCashOutInfo[item.user_id]
-                );
+                //if the user has cash out history in the same week
+                cashOut.calculateCommissionNatural(item.operation.amount, usersCashOutInfo[item.user_id]);
                 usersCashOutInfo[item.user_id] += item.operation.amount;
             } else if (!moment(item.date).isSame(dateToCheckWith, 'week')) {
+                //if the user has no cash out history in the same week
                 usersCashOutInfo[item.user_id] = item.operation.amount;
                 cashOut.calculateCommissionNatural(item.operation.amount, 0);
                 dateToCheckWith = item.date;
             }
         } else {
+            //in case of cash out juridical
             cashOut.calculateCommissionJuridical(item.operation.amount);
         }
     });
