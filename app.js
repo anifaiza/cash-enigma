@@ -13,7 +13,7 @@ moment.updateLocale('en', {
 
 app.outputComission = (inputArray) => {
     let dateToCheckWith = inputArray[0].date;
-    const usersCashOutInfo = {};
+    const usersCashOutInfo = {}; // to keep track of individual users'(natural) cash out amount in the same week
 
     inputArray.map((item) => {
         if (item.type === 'cash_in') { 
