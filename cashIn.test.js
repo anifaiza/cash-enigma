@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const cashIn = require('./cashIn');
 
 test('calculates cashIn commission correctly', () => {

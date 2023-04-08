@@ -4,6 +4,7 @@
     "ecmaVersion": 12
   },
   "env": {
+    "es6": true,
     "commonjs": true,
     "node": true
   },
@@ -14,7 +15,7 @@
     "prettier/prettier": [
       "error",
       {
-        "trailingComma": "es5",
+        "trailingComma": "ES6",
         "singleQuote": true,
         "printWidth": 100,
         "tabWidth": 4,

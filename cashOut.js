@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const cashOut = {};
 
 const cashOutNaturalConfig = {
@@ -13,7 +12,6 @@ cashOut.calculateCommissionNatural = (transactionAmount, prevCashOutAmount) => {
     let commission = 0;
     if (prevCashOutAmount === 0) {
         if (transactionAmount > cashOutNaturalConfig.week_limit.amount) {
-            // eslint-disable-next-line prettier/prettier
             commissionToBeCalculatedOn -= cashOutNaturalConfig.week_limit.amount;
             commission = (commissionToBeCalculatedOn * cashOutNaturalConfig.percents) / 100;
         } else {
@@ -23,7 +21,6 @@ cashOut.calculateCommissionNatural = (transactionAmount, prevCashOutAmount) => {
         prevCashOutAmount < cashOutNaturalConfig.week_limit.amount &&
         prevCashOutAmount + transactionAmount > cashOutNaturalConfig.week_limit.amount
     ) {
-        // eslint-disable-next-line prettier/prettier
         commissionToBeCalculatedOn = prevCashOutAmount + transactionAmount - cashOutNaturalConfig.week_limit.amount;
         commission = (commissionToBeCalculatedOn * cashOutNaturalConfig.percents) / 100;
     } else if (prevCashOutAmount >= cashOutNaturalConfig.week_limit.amount) {

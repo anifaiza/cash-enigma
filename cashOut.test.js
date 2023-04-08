@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const cashOut = require('./cashOut');
 
 test('calculates cashOut commission for legal person correctly', () => {
